@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp '__TRACKED_VAR__/Contorno Bull Azul.png' public/bull-navy.png)",
+      "Bash(cp '__TRACKED_VAR__/Contorno Bull Branco.png' public/bull-white.png)",
+      "Bash(cp '__TRACKED_VAR__/Opção Consultoria Azul.png' public/logo-navy.png)",
+      "Bash(cp '__TRACKED_VAR__/Opção Consultoria Branco \\(1\\).png' public/logo-white.png)",
+      "Bash(cp '__TRACKED_VAR__/Favicon Azul.png' src/app/icon.png)"
+    ]
+  }
+}
