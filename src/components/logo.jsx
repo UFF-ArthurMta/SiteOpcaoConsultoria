@@ -2,13 +2,13 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const LOGO_SRC = {
-  navy: "/logo-navy.png",
-  white: "/logo-white.png",
+  navy: "/SiteOpcaoConsultoria/logo-navy.png",
+  white: "/SiteOpcaoConsultoria/logo-white.png",
 };
 
 const BULL_SRC = {
-  navy: "/bull-navy.png",
-  white: "/bull-white.png",
+  navy: "/SiteOpcaoConsultoria/bull-navy.png",
+  white: "/SiteOpcaoConsultoria/bull-white.png",
 };
 
 /**
