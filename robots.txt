@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /membros
+
+Sitemap: https://opcaoconsultoria.com.br/sitemap.xml
