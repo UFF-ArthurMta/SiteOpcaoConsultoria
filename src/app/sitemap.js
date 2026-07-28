@@ -1,5 +1,7 @@
 import { siteConfig } from "@/lib/site-data";
 
+export const dynamic = "force-static";
+
 export default function sitemap() {
   const base = siteConfig.url;
   const now = new Date();
