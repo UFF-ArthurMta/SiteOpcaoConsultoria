@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# documentos internos (não fazem parte do código do site)
+/Checklist-Conteudo-Site-Opcao.pdf
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
