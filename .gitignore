@@ -42,3 +42,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# local env files
+.env.local
+
+#claude mds
+AGENTS.md
+CLAUDE.md
