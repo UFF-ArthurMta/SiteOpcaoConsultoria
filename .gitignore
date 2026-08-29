@@ -47,6 +47,7 @@ next-env.d.ts
 # local env files
 .env.local
 
-#claude mds
+# Claude Code (instruções do agente e config local — não versionar)
 AGENTS.md
 CLAUDE.md
+.claude/
