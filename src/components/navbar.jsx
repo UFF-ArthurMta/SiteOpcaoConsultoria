@@ -33,12 +33,14 @@ export default function Navbar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
+    // Fundo branco sólido + faixa branca acima do header: no Safari do iPhone
+    // (iOS 26) a barra de endereço é transparente e o conteúdo rolado
+    // aparecia no vão entre o topo da tela e o header.
     <header
       className={cn(
-        "sticky top-0 z-40 w-full border-b transition-all",
-        scrolled
-          ? "border-border bg-white/90 backdrop-blur-md shadow-sm"
-          : "border-transparent bg-white"
+        "sticky top-0 z-40 w-full border-b bg-white transition-[border-color,box-shadow]",
+        "before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-screen before:bg-white",
+        scrolled ? "border-border shadow-sm" : "border-transparent"
       )}
     >
       <Container className="flex h-16 items-center justify-between gap-4">

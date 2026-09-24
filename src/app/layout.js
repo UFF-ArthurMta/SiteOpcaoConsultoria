@@ -52,6 +52,11 @@ export const metadata = {
   robots: { index: true, follow: true },
 };
 
+// Cor da barra do navegador no celular (igual ao fundo do header).
+export const viewport = {
+  themeColor: "#ffffff",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
