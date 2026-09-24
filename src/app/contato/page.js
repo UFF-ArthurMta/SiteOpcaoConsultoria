@@ -50,7 +50,7 @@ export default function ContatoPage() {
       <section className="py-16 sm:py-24">
         <Container className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-14">
           {/* Coluna de informações */}
-          <div>
+          <div className="min-w-0">
             <h2 className="text-2xl font-bold text-brand-navy">
               Vamos conversar sobre o seu negócio
             </h2>
@@ -67,11 +67,13 @@ export default function ContatoPage() {
                     <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-orange-50 text-brand-orange">
                       <Icon className="size-5" />
                     </span>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm font-semibold text-brand-navy">
                         {info.label}
                       </p>
-                      <p className="text-sm text-brand-text">{info.value}</p>
+                      <p className="text-sm break-words text-brand-text">
+                        {info.value}
+                      </p>
                     </div>
                   </div>
                 );
@@ -110,7 +112,7 @@ export default function ContatoPage() {
           </div>
 
           {/* Coluna do formulário */}
-          <div>
+          <div className="min-w-0">
             <ContactForm />
           </div>
         </Container>

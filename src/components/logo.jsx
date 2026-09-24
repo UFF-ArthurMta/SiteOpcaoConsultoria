@@ -23,7 +23,7 @@ export function Logo({ variant = "navy", className, priority = false }) {
       alt="Opção Consultoria"
       width={960}
       height={314}
-      priority={priority}
+      preload={priority}
       sizes="240px"
       className={cn("h-10 w-auto", className)}
     />

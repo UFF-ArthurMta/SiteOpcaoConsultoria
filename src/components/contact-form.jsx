@@ -1,14 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle2, Loader2, Send } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { siteConfig } from "@/lib/site-data";
+import { asset } from "@/lib/asset";
+
+// Poses do mascote (arquivos em public/mascote, com largura x altura reais).
+const MASCOT = {
+  waiting: { src: "/mascote/bracos-cruzados.webp", width: 243, height: 320 },
+  success: { src: "/mascote/comemorando.webp", width: 296, height: 320 },
+  email: { src: "/mascote/joinha.webp", width: 273, height: 320 },
+};
 
 // Padrão: envio pelo Web3Forms direto para o comercial (funciona no GitHub
 // Pages e na Vercel). Na Vercel, com NEXT_PUBLIC_USE_POWER_AUTOMATE=true e
@@ -20,20 +29,40 @@ const USE_API =
 // Chave pública do Web3Forms (só permite enviar para o e-mail cadastrado).
 const WEB3FORMS_KEY = "b086da5c-4eb4-42a6-a20d-8930788610f3";
 
+// Link de WhatsApp a partir do telefone digitado (assume Brasil, +55).
+function whatsappLink(phone) {
+  let digits = phone.replace(/\D/g, "");
+  if (digits.startsWith("55") && digits.length > 11) digits = digits.slice(2);
+  return digits.length >= 10 ? `https://wa.me/55${digits}` : "Telefone incompleto";
+}
+
+// O plano grátis do Web3Forms usa um modelo de e-mail fixo: a "personalização"
+// vem do assunto, do remetente e dos nomes/ordem dos campos abaixo.
 async function sendViaWeb3Forms(form) {
+  const receivedAt = new Date().toLocaleString("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+    dateStyle: "full",
+    timeStyle: "short",
+  });
+
   const res = await fetch("https://api.web3forms.com/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({
       access_key: WEB3FORMS_KEY,
-      subject: `Diagnóstico gratuito — ${form.company}`,
-      from_name: "Site Opção Consultoria",
-      replyto: form.email,
-      Nome: form.name,
-      Empresa: form.company,
-      "E-mail": form.email,
-      Telefone: form.phone,
-      Desafio: form.message,
+      subject: `🐂 Novo pedido de diagnóstico — ${form.company.trim()}`,
+      from_name: "Opção Consultoria • Site",
+      replyto: form.email.trim(),
+      "🏢 Empresa": form.company.trim(),
+      "👤 Nome": form.name.trim(),
+      "📧 E-mail": form.email.trim(),
+      "📱 Telefone": form.phone.trim(),
+      "💬 Chamar no WhatsApp": whatsappLink(form.phone),
+      "🎯 Desafio da empresa": form.message.trim(),
+      "🕒 Recebido em": receivedAt,
+      "🌐 Enviado pela página": window.location.href,
+      "↩️ Como responder":
+        "É só clicar em Responder: a resposta vai direto para o e-mail do cliente.",
     }),
   });
   const data = await res.json().catch(() => ({}));
@@ -138,10 +167,11 @@ export default function ContactForm() {
 
   if (success) {
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-border bg-white p-8 text-center sm:p-10">
-        <span className="flex size-16 items-center justify-center rounded-full bg-green-100">
-          <CheckCircle2 className="size-9 text-green-600" />
-        </span>
+      <div className="flex flex-col items-center rounded-2xl border border-border bg-linear-to-b from-brand-orange-50 to-white p-8 text-center shadow-sm sm:p-10">
+        <MascotImage
+          pose={viaEmail ? MASCOT.email : MASCOT.success}
+          className="h-40 w-auto sm:h-44"
+        />
         {viaEmail ? (
           <>
             <h3 className="mt-5 text-2xl font-bold text-brand-navy">
@@ -189,118 +219,146 @@ export default function ContactForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      className="rounded-2xl border border-border bg-white p-6 shadow-sm sm:p-8"
-    >
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="name" label="Nome completo" required>
-          <Input
-            id="name"
-            name="name"
-            autoComplete="name"
-            required
-            value={form.name}
-            onChange={update("name")}
-            placeholder="Seu nome"
-          />
-        </Field>
-
-        <Field id="company" label="Nome da empresa" required>
-          <Input
-            id="company"
-            name="company"
-            autoComplete="organization"
-            required
-            value={form.company}
-            onChange={update("company")}
-            placeholder="Sua empresa"
-          />
-        </Field>
-
-        <Field id="email" label="E-mail" required>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={form.email}
-            onChange={update("email")}
-            placeholder="voce@empresa.com.br"
-          />
-        </Field>
-
-        <Field id="phone" label="Telefone / WhatsApp" required>
-          <Input
-            id="phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            required
-            value={form.phone}
-            onChange={update("phone")}
-            placeholder="(21) 99999-9999"
-          />
-        </Field>
-      </div>
-
-      <div className="mt-5">
-        <Field id="message" label="Desafio ou problema atual" required>
-          <Textarea
-            id="message"
-            name="message"
-            required
-            rows={5}
-            value={form.message}
-            onChange={update("message")}
-            placeholder="Conte rapidamente o desafio que sua empresa está enfrentando."
-          />
-        </Field>
-      </div>
-
-      {/* Honeypot anti-spam (oculto para humanos) */}
-      <div className="hidden" aria-hidden="true">
-        <label htmlFor="website">Não preencha este campo</label>
-        <input
-          id="website"
-          name="website"
-          tabIndex={-1}
-          autoComplete="off"
-          value={form.website}
-          onChange={update("website")}
+    // O mascote fica "sentado" na borda de cima do card. No desktop ele sobe
+    // para o respiro da seção; no celular o espaço vem do padding-top.
+    <div className="relative pt-22 lg:pt-0">
+      <div className="pointer-events-none absolute top-0 right-4 z-10 flex items-start gap-1 select-none sm:right-8 lg:-top-22">
+        <p className="relative mt-3 rounded-2xl rounded-br-sm bg-brand-navy px-3.5 py-2 text-xs font-semibold text-white shadow-md sm:text-sm">
+          Leva só 2 minutinhos!
+        </p>
+        <MascotImage
+          pose={MASCOT.waiting}
+          eager
+          className="h-24 w-auto drop-shadow-sm"
         />
       </div>
 
-      <Button
-        type="submit"
-        size="xl"
-        variant="cta"
-        disabled={submitting}
-        className="mt-7 w-full"
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className="rounded-2xl border border-border bg-white p-6 shadow-sm sm:p-8"
       >
-        {submitting ? (
-          <>
-            <Loader2 className="animate-spin" />
-            Enviando...
-          </>
-        ) : (
-          <>
-            <Send />
-            Solicitar Diagnóstico Gratuito
-          </>
-        )}
-      </Button>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field id="name" label="Nome completo" required>
+            <Input
+              id="name"
+              name="name"
+              autoComplete="name"
+              required
+              value={form.name}
+              onChange={update("name")}
+              placeholder="Seu nome"
+            />
+          </Field>
 
-      <p className="mt-4 text-center text-xs text-brand-text/70">
-        Ao enviar, você concorda com a nossa{" "}
-        <Link href="/privacidade" className="underline hover:text-brand-orange">
-          Política de Privacidade
-        </Link>
-        .
-      </p>
-    </form>
+          <Field id="company" label="Nome da empresa" required>
+            <Input
+              id="company"
+              name="company"
+              autoComplete="organization"
+              required
+              value={form.company}
+              onChange={update("company")}
+              placeholder="Sua empresa"
+            />
+          </Field>
+
+          <Field id="email" label="E-mail" required>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              value={form.email}
+              onChange={update("email")}
+              placeholder="voce@empresa.com.br"
+            />
+          </Field>
+
+          <Field id="phone" label="Telefone / WhatsApp" required>
+            <Input
+              id="phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              required
+              value={form.phone}
+              onChange={update("phone")}
+              placeholder="(21) 99999-9999"
+            />
+          </Field>
+        </div>
+
+        <div className="mt-5">
+          <Field id="message" label="Desafio ou problema atual" required>
+            <Textarea
+              id="message"
+              name="message"
+              required
+              rows={5}
+              value={form.message}
+              onChange={update("message")}
+              placeholder="Conte rapidamente o desafio que sua empresa está enfrentando."
+            />
+          </Field>
+        </div>
+
+        {/* Honeypot anti-spam (oculto para humanos) */}
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="website">Não preencha este campo</label>
+          <input
+            id="website"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={form.website}
+            onChange={update("website")}
+          />
+        </div>
+
+        <Button
+          type="submit"
+          size="xl"
+          variant="cta"
+          disabled={submitting}
+          className="mt-7 w-full"
+        >
+          {submitting ? (
+            <>
+              <Loader2 className="animate-spin" />
+              Enviando...
+            </>
+          ) : (
+            <>
+              <Send />
+              Solicitar Diagnóstico Gratuito
+            </>
+          )}
+        </Button>
+
+        <p className="mt-4 text-center text-xs text-brand-text/70">
+          Ao enviar, você concorda com a nossa{" "}
+          <Link href="/privacidade" className="underline hover:text-brand-orange">
+            Política de Privacidade
+          </Link>
+          .
+        </p>
+      </form>
+    </div>
+  );
+}
+
+function MascotImage({ pose, className, eager = false }) {
+  return (
+    <Image
+      src={asset(pose.src)}
+      alt=""
+      width={pose.width}
+      height={pose.height}
+      loading={eager ? "eager" : undefined}
+      className={className}
+    />
   );
 }
 
