@@ -10,9 +10,35 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { siteConfig } from "@/lib/site-data";
 
-// No export estático (GitHub Pages) não existe /api/lead: o envio vira um
-// e-mail pré-preenchido para o comercial. Na Vercel, usa o /api/lead.
-const IS_STATIC = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
+// Padrão: envio pelo Web3Forms direto para o comercial (funciona no GitHub
+// Pages e na Vercel). Na Vercel, com NEXT_PUBLIC_USE_POWER_AUTOMATE=true e
+// POWER_AUTOMATE_URL configuradas, passa a usar o /api/lead (Power Automate).
+const USE_API =
+  process.env.NEXT_PUBLIC_STATIC_EXPORT !== "true" &&
+  process.env.NEXT_PUBLIC_USE_POWER_AUTOMATE === "true";
+
+// Chave pública do Web3Forms (só permite enviar para o e-mail cadastrado).
+const WEB3FORMS_KEY = "b086da5c-4eb4-42a6-a20d-8930788610f3";
+
+async function sendViaWeb3Forms(form) {
+  const res = await fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({
+      access_key: WEB3FORMS_KEY,
+      subject: `Diagnóstico gratuito — ${form.company}`,
+      from_name: "Site Opção Consultoria",
+      replyto: form.email,
+      Nome: form.name,
+      Empresa: form.company,
+      "E-mail": form.email,
+      Telefone: form.phone,
+      Desafio: form.message,
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  return res.ok && data.success;
+}
 
 function buildMailto(form) {
   const subject = `Diagnóstico gratuito — ${form.company}`;
@@ -63,11 +89,27 @@ export default function ContactForm() {
       return;
     }
 
-    if (IS_STATIC) {
-      window.location.href = buildMailto(form);
-      setViaEmail(true);
+    // Honeypot preenchido = bot: finge sucesso sem enviar nada.
+    if (form.website) {
       setSuccess(true);
       setForm(initialState);
+      return;
+    }
+
+    if (!USE_API) {
+      setSubmitting(true);
+      try {
+        if (!(await sendViaWeb3Forms(form))) throw new Error("web3forms");
+        setSuccess(true);
+      } catch {
+        // Se o serviço falhar, não perde o lead: abre o e-mail pré-preenchido.
+        window.location.href = buildMailto(form);
+        setViaEmail(true);
+        setSuccess(true);
+      } finally {
+        setForm(initialState);
+        setSubmitting(false);
+      }
       return;
     }
 

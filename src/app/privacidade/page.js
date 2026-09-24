@@ -46,9 +46,12 @@ export default function PrivacidadePage() {
             </Block>
 
             <Block title="4. Compartilhamento">
-              Seus dados podem ser processados em ferramentas da Microsoft (Power
-              Automate e Excel Online) utilizadas para a gestão dos contatos
-              recebidos, sempre com medidas adequadas de segurança.
+              Os dados enviados pelo formulário são transmitidos por conexão
+              segura (HTTPS) por meio do Web3Forms, serviço que apenas encaminha
+              a mensagem para o e-mail da nossa equipe comercial. Também podem
+              ser processados em ferramentas da Microsoft (Outlook, Power
+              Automate e Excel) utilizadas para a gestão dos contatos recebidos,
+              sempre com medidas adequadas de segurança.
             </Block>
 
             <Block title="5. Cookies">
