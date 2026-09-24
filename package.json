@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:pages": "cross-env GITHUB_PAGES=true next build && node scripts/fix-export-prefetch.mjs",
+    "deploy:pages": "npm run build:pages && gh-pages -d out --dotfiles",
     "start": "next start",
     "lint": "eslint"
   },
@@ -24,8 +26,10 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "gh-pages": "^6.3.0",
     "tailwindcss": "^4"
   }
 }

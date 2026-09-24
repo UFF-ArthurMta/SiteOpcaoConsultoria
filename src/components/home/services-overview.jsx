@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Container from "@/components/container";
 import SectionHeading from "@/components/section-heading";
 import { Card, CardContent } from "@/components/ui/card";
-import { services } from "@/lib/site-data";
+import { serviceAreas, servicesByArea } from "@/lib/site-data";
 
 export default function ServicesOverview() {
   return (
@@ -12,34 +12,45 @@ export default function ServicesOverview() {
         <SectionHeading
           eyebrow="O que fazemos"
           title="Soluções para decidir com segurança"
-          subtitle="Consultoria econômica e financeira sob medida para o momento da sua empresa."
+          subtitle="Sete serviços em três áreas de atuação, sempre ajustados ao momento da sua empresa."
         />
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => {
-            const Icon = service.icon;
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {serviceAreas.map((area) => {
+            const Icon = area.icon;
             return (
               <Card
-                key={service.slug}
-                className="group h-full ring-border transition-all [--card-spacing:--spacing(6)] hover:-translate-y-1 hover:ring-brand-orange/40 hover:shadow-lg"
+                key={area.slug}
+                className="h-full ring-border transition-shadow [--card-spacing:--spacing(6)] hover:shadow-lg"
               >
                 <CardContent className="flex h-full flex-col">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-brand-orange-50 text-brand-orange transition-colors group-hover:bg-brand-orange group-hover:text-white">
+                  <div className="flex size-12 items-center justify-center rounded-xl bg-brand-navy text-white">
                     <Icon className="size-6" />
                   </div>
                   <h3 className="mt-5 text-lg font-bold text-brand-navy">
-                    {service.title}
+                    {area.title}
                   </h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-text">
-                    {service.summary}
+                  <p className="mt-1.5 text-sm leading-relaxed text-brand-text">
+                    {area.summary}
                   </p>
-                  <Link
-                    href={`/servicos#${service.slug}`}
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-navy transition-colors hover:text-brand-orange"
-                  >
-                    Saiba mais
-                    <ArrowRight className="size-4" />
-                  </Link>
+
+                  <ul className="mt-5 flex flex-1 flex-col gap-1 border-t border-border pt-4">
+                    {servicesByArea(area.slug).map((service) => {
+                      const ServiceIcon = service.icon;
+                      return (
+                        <li key={service.slug}>
+                          <Link
+                            href={`/servicos#${service.slug}`}
+                            className="group flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-gray"
+                          >
+                            <ServiceIcon className="size-4 shrink-0 text-brand-orange" />
+                            <span className="flex-1">{service.title}</span>
+                            <ArrowRight className="size-4 text-brand-navy/30 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-orange" />
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </CardContent>
               </Card>
             );

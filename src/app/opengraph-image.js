@@ -1,6 +1,9 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site-data";
 
+// Gerado no build (necessário para o export estático do GitHub Pages).
+export const dynamic = "force-static";
+
 export const alt = `${siteConfig.name} — Consultoria Econômica e Financeira`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -56,7 +59,7 @@ export default function OgImage() {
             Sua tomada de decisão com base em dados reais.
           </div>
           <div style={{ fontSize: "30px", color: "#cdd3ef", maxWidth: "860px" }}>
-            Consultoria econômica e financeira para PMEs em Niterói.
+            Estratégia, finanças e pesquisa de mercado em Niterói.
           </div>
         </div>
 
@@ -74,7 +77,7 @@ export default function OgImage() {
             Solicite um Diagnóstico Gratuito
           </div>
           <div style={{ fontSize: "24px", color: "#9aa3d4" }}>
-            Empresa Júnior de Economia • UFF
+            Empresa Júnior da UFF • desde 1998
           </div>
         </div>
       </div>

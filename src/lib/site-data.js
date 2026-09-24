@@ -2,51 +2,75 @@
  * ============================================================================
  *  CONTEÚDO CENTRAL DO SITE — Opção Consultoria
  * ============================================================================
- *  Edite ESTE arquivo para alterar textos, serviços, cases, depoimentos, time,
- *  contatos e números. Tudo que está marcado com [PLACEHOLDER] (ou claramente
- *  ilustrativo) deve ser substituído pelo conteúdo real aprovado pela diretoria.
+ *  Edite ESTE arquivo para alterar textos, serviços, cases e contatos.
+ *  Conteúdo oficial enviado pela presidência (formulário + portfólio de cases).
  * ============================================================================
  */
 
 import {
+  Tags,
+  Search,
   Wallet,
   LineChart,
-  Calculator,
-  Search,
   Target,
-  TrendingUp,
-  ShieldCheck,
-  Handshake,
+  Briefcase,
+  BookOpen,
+  Store,
+  Landmark,
+  Compass,
+  Eye,
+  BadgeCheck,
   Lightbulb,
+  Handshake,
+  TrendingUp,
   Users,
+  Microscope,
+  Milk,
+  Shirt,
+  Sofa,
+  Scissors,
+  GraduationCap,
+  Ruler,
 } from "lucide-react";
 
 /** Configurações gerais / institucional */
 export const siteConfig = {
   name: "Opção Consultoria",
   shortName: "Opção",
-  // [PLACEHOLDER] domínio final — ajuste quando o registro.br estiver ativo
+  legalName: "Opção Júnior",
+  foundedAt: "1998-09-18",
+  foundedLabel: "18 de setembro de 1998",
+  // Domínio final — ajuste quando o registro.br estiver ativo
   url: "https://opcaoconsultoria.com.br",
   description:
-    "Empresa Júnior de Economia da UFF. Consultoria econômica e financeira para micro, pequenas e médias empresas de Niterói e região, com decisões baseadas em dados reais.",
-  // Contatos institucionais — [PLACEHOLDER] confirmar dados reais
-  email: "contato@opcaoconsultoria.com.br",
-  phone: "+55 (21) 0000-0000",
-  whatsapp: "5521000000000", // só dígitos, formato internacional (para link wa.me)
-  cnpj: "00.000.000/0001-00", // [PLACEHOLDER]
+    "Empresa júnior de consultoria da UFF, desde 1998. Estratégia, finanças e pesquisa de mercado para empresas e empreendedores de Niterói e região.",
+  email: "comercial@opcaoconsultoria.com.br",
+  phone: "(21) 2042-2567",
+  whatsapp: "552120422567", // só dígitos, formato internacional (link wa.me)
+  cnpj: "02.744.184/0001-20",
   address: {
-    line1: "Faculdade de Economia — UFF",
-    line2: "Rua Tiradentes, 17 — Ingá", // [PLACEHOLDER] sala/endereço exato
+    line1: "UFF — Campus do Gragoatá, Bloco F, Sala 202A",
+    line2: "R. Prof. Marcos Waldemar de Freitas Reis — São Domingos",
     city: "Niterói",
     state: "RJ",
-    zip: "24210-510", // [PLACEHOLDER]
+    zip: "24210-201",
   },
   social: {
-    // [PLACEHOLDER] URLs reais das redes
     linkedin: "https://www.linkedin.com/company/opcaoconsultoria/",
     instagram: "https://www.instagram.com/opcaoconsultoria/",
   },
 };
+
+/** Anos completos desde a fundação (calculado no build). */
+export function yearsSinceFounding(now = new Date()) {
+  const founded = new Date(siteConfig.foundedAt);
+  let years = now.getFullYear() - founded.getFullYear();
+  const beforeAnniversary =
+    now.getMonth() < founded.getMonth() ||
+    (now.getMonth() === founded.getMonth() && now.getDate() < founded.getDate());
+  if (beforeAnniversary) years -= 1;
+  return years;
+}
 
 /** Itens de navegação (rotas em português) */
 export const navLinks = [
@@ -63,246 +87,344 @@ export const primaryCta = {
   href: "/contato",
 };
 
-/** Hero (Home) — copy provisória do briefing */
+/** Hero (Home) */
 export const hero = {
-  eyebrow: "Empresa Júnior de Economia • UFF",
+  eyebrow: "Empresa Júnior da UFF • desde 1998",
   title: "Sua tomada de decisão com base em dados reais.",
   subtitle:
-    "Consultoria econômica e financeira para pequenas e médias empresas em Niterói. Diagnóstico claro, recomendações práticas e acompanhamento de perto.",
-  stats: [
-    { value: "Preço justo", label: "de Empresa Júnior" },
-    { value: "100% UFF", label: "talentos em Economia" },
-  ],
+    "Estratégia, finanças e pesquisa de mercado para empresas e empreendedores de Niterói e região. Tratamos problemas reais com seriedade, clareza e método.",
 };
 
-/**
- * Serviços (provisórios — confirmar com a diretoria).
- * `slug` é usado como âncora na página /servicos.
- */
+/* ------------------------------------------------------------------------ */
+/*  SERVIÇOS                                                                 */
+/* ------------------------------------------------------------------------ */
+
+/** Áreas de atuação (agrupam os serviços). */
+export const serviceAreas = [
+  {
+    slug: "estrategias-comerciais",
+    icon: Store,
+    title: "Estratégias Comerciais",
+    summary: "Preço e mercado: saiba quanto cobrar e para quem vender.",
+  },
+  {
+    slug: "financas-e-riscos",
+    icon: Landmark,
+    title: "Finanças e Gestão de Riscos",
+    summary: "Clareza sobre o caixa e segurança para investir.",
+  },
+  {
+    slug: "estrategia-e-planejamento",
+    icon: Compass,
+    title: "Estratégia e Planejamento",
+    summary: "Prioridades, planos e processos para crescer com direção.",
+  },
+];
+
+/** Serviços — `area` aponta para serviceAreas[].slug; `slug` vira âncora em /servicos. */
 export const services = [
   {
+    slug: "precificacao",
+    area: "estrategias-comerciais",
+    icon: Tags,
+    title: "Precificação",
+    description:
+      "Definimos estratégias de preço a partir da análise de custos, concorrência e objetivos do negócio, buscando equilibrar competitividade, percepção de valor e rentabilidade.",
+    forWhom:
+      "Empresas que precisam revisar preços, margens ou posicionamento competitivo.",
+    deliverables: [
+      "Análise da estrutura de custos",
+      "Estudo da concorrência",
+      "Estratégia de precificação",
+      "Projeções e cenários de preço",
+    ],
+  },
+  {
+    slug: "pesquisa-de-mercado",
+    area: "estrategias-comerciais",
+    icon: Search,
+    title: "Pesquisa de Mercado",
+    description:
+      "Coletamos e analisamos dados sobre consumidores, concorrentes e mercado para transformar incertezas em informações que orientem decisões comerciais.",
+    forWhom:
+      "Empresas que querem conhecer melhor seus clientes, avaliar oportunidades ou tomar decisões sobre produtos e posicionamento.",
+    deliverables: [
+      "Definição e segmentação do público-alvo",
+      "Pesquisa qualitativa e/ou quantitativa",
+      "Análise da concorrência",
+      "Análise de mercado e comportamento do consumidor",
+      "Relatório com insights e recomendações",
+    ],
+  },
+  {
     slug: "planejamento-financeiro",
+    area: "financas-e-riscos",
     icon: Wallet,
     title: "Planejamento Financeiro",
-    summary: "Organize o caixa e enxergue o futuro financeiro do seu negócio.",
     description:
-      "Estruturamos o fluxo de caixa, projeções e indicadores para que a empresa saiba para onde o dinheiro vai e quanto sobra ao fim do mês. [PLACEHOLDER — revisar texto com a diretoria]",
+      "Estruturamos o fluxo de caixa, as projeções e os indicadores financeiros para que a empresa tenha clareza sobre seus recursos e possa planejar seus próximos passos.",
     forWhom:
-      "Empresas que sentem que faltam recursos sem saber exatamente o porquê.",
+      "Empresas que precisam organizar suas finanças, compreender o comportamento do caixa e planejar seu crescimento.",
     deliverables: [
-      "Diagnóstico financeiro completo",
+      "Diagnóstico financeiro",
+      "Projeção de receitas e despesas",
       "Fluxo de caixa projetado",
-      "Painel de indicadores (KPIs)",
+      "Indicadores financeiros",
       "Plano de ação financeiro",
     ],
   },
   {
     slug: "viabilidade-economica",
+    area: "financas-e-riscos",
     icon: LineChart,
     title: "Análise de Viabilidade Econômica",
-    summary: "Descubra se uma ideia, produto ou expansão se paga.",
     description:
-      "Avaliamos investimentos e novos projetos com indicadores como VPL, TIR e payback, reduzindo o risco da decisão. [PLACEHOLDER — revisar texto com a diretoria]",
+      "Avaliamos investimentos, novos produtos e projetos por meio de indicadores financeiros e diferentes cenários, reduzindo incertezas e dando mais segurança à decisão.",
     forWhom:
-      "Empreendedores avaliando um novo produto, unidade ou investimento.",
+      "Empreendedores e empresas avaliando novos produtos, unidades, investimentos ou projetos.",
     deliverables: [
       "Estudo de viabilidade",
       "Projeção de receitas e custos",
-      "Indicadores (VPL, TIR, payback)",
-      "Recomendação de decisão",
-    ],
-  },
-  {
-    slug: "gestao-de-custos",
-    icon: Calculator,
-    title: "Gestão de Custos",
-    summary: "Saiba quanto custa cada produto e onde estão as perdas.",
-    description:
-      "Mapeamos custos fixos e variáveis, calculamos margem de contribuição e ponto de equilíbrio para orientar preços e cortes. [PLACEHOLDER — revisar texto com a diretoria]",
-    forWhom: "Negócios com dúvida sobre precificação e margem real.",
-    deliverables: [
-      "Mapeamento de custos",
-      "Margem de contribuição por produto",
-      "Ponto de equilíbrio",
-      "Recomendações de precificação",
-    ],
-  },
-  {
-    slug: "pesquisa-de-mercado",
-    icon: Search,
-    title: "Pesquisa de Mercado",
-    summary: "Entenda seu cliente, concorrência e o tamanho da oportunidade.",
-    description:
-      "Coletamos e analisamos dados de mercado, concorrentes e público-alvo para embasar estratégias comerciais. [PLACEHOLDER — revisar texto com a diretoria]",
-    forWhom: "Empresas lançando ou repensando produtos e posicionamento.",
-    deliverables: [
-      "Pesquisa com público-alvo",
-      "Análise da concorrência",
-      "Dimensionamento de mercado",
-      "Relatório com insights acionáveis",
+      "VPL, TIR e Payback",
+      "Análise de cenários e sensibilidade",
+      "Relatório e recomendação de decisão",
     ],
   },
   {
     slug: "planejamento-estrategico",
+    area: "estrategia-e-planejamento",
     icon: Target,
     title: "Planejamento Estratégico",
-    summary: "Defina objetivos claros e um caminho para alcançá-los.",
     description:
-      "Conduzimos diagnóstico, definição de metas e plano de ação para alinhar a empresa em torno de prioridades. [PLACEHOLDER — revisar texto com a diretoria]",
-    forWhom: "Gestores que querem crescer com direção, não no improviso.",
+      "Transformamos objetivos de crescimento em prioridades, estratégias e planos de ação, alinhando a empresa em torno de um caminho claro.",
+    forWhom:
+      "Empresas que precisam definir prioridades, estruturar seu crescimento ou alinhar suas ações a objetivos claros.",
     deliverables: [
-      "Diagnóstico estratégico (SWOT)",
-      "Objetivos e metas (OKRs)",
-      "Plano de ação priorizado",
+      "Diagnóstico estratégico",
+      "Definição de objetivos e metas",
+      "Estratégias prioritárias",
+      "Plano de ação",
       "Indicadores de acompanhamento",
+    ],
+  },
+  {
+    slug: "plano-de-negocios",
+    area: "estrategia-e-planejamento",
+    icon: Briefcase,
+    title: "Plano de Negócios",
+    description:
+      "Transformamos uma ideia ou oportunidade em um projeto empresarial estruturado, integrando mercado, modelo de negócio, operações, finanças e riscos.",
+    forWhom:
+      "Empreendedores e empresas que estão criando, expandindo ou reformulando um negócio.",
+    deliverables: [
+      "Análise de mercado e público-alvo",
+      "Modelagem do negócio",
+      "Planejamento operacional",
+      "Projeções financeiras",
+      "Análise de viabilidade e riscos",
+    ],
+  },
+  {
+    slug: "manuais-estrategicos",
+    area: "estrategia-e-planejamento",
+    icon: BookOpen,
+    title: "Manuais Estratégicos",
+    description:
+      "Estruturamos e padronizamos processos, práticas e orientações em materiais claros e funcionais, adaptados às necessidades e à identidade de cada empresa.",
+    forWhom:
+      "Empresas que precisam organizar, documentar ou padronizar processos, práticas e conhecimentos internos.",
+    deliverables: [
+      "Levantamento de necessidades",
+      "Mapeamento de processos e conteúdos",
+      "Estruturação textual e visual",
+      "Validação e personalização",
+      "Manual final",
     ],
   },
 ];
 
-/** Números de impacto (provisórios — [PLACEHOLDER] substituir pelos reais) */
-export const stats = [
-  { value: "30", suffix: "+", label: "Projetos realizados", placeholder: true },
-  { value: "25", suffix: "+", label: "Clientes atendidos", placeholder: true },
-  { value: "95", suffix: "%", label: "Satisfação dos clientes", placeholder: true },
-  { value: "10", suffix: "+", label: "Anos de história", placeholder: true },
-];
+/** Serviços de uma área, na ordem do portfólio. */
+export function servicesByArea(areaSlug) {
+  return services.filter((s) => s.area === areaSlug);
+}
 
-/**
- * Depoimentos — TEXTOS ILUSTRATIVOS / [PLACEHOLDER].
- * Substituir por depoimentos reais e autorizados pelos clientes.
- */
-export const testimonials = [
-  {
-    quote:
-      "A Opção trouxe clareza para os nossos números. Hoje tomamos decisões com muito mais segurança.",
-    name: "Nome do Cliente",
-    role: "Sócio-fundador",
-    company: "Empresa Cliente",
-  },
-  {
-    quote:
-      "Profissionalismo de consultoria sênior com a proximidade de quem realmente se importa com o resultado.",
-    name: "Nome do Cliente",
-    role: "Diretora",
-    company: "Empresa Cliente",
-  },
-  {
-    quote:
-      "O diagnóstico mostrou exatamente onde estávamos perdendo margem. O retorno veio em poucos meses.",
-    name: "Nome do Cliente",
-    role: "Gerente",
-    company: "Empresa Cliente",
-  },
-];
+/* ------------------------------------------------------------------------ */
+/*  CASES (portfólio oficial)                                                */
+/* ------------------------------------------------------------------------ */
 
-/**
- * Logos de clientes ("Quem Confia"). Como ainda não há os arquivos,
- * usamos nomes como placeholders. Troque por <img> dos logos reais depois.
- */
-export const clients = [
-  "Cliente 01",
-  "Cliente 02",
-  "Cliente 03",
-  "Cliente 04",
-  "Cliente 05",
-  "Cliente 06",
-];
-
-/**
- * Cases de sucesso — CONTEÚDO ILUSTRATIVO / [PLACEHOLDER].
- * Anonimizado conforme necessário. Substituir por cases reais.
- */
 export const cases = [
   {
-    sector: "Comércio varejista",
-    icon: TrendingUp,
+    slug: "fiocruz",
+    client: "Fiocruz",
+    year: null,
+    icon: Microscope,
+    project: "Viabilidade mercadológica",
+    sector: "Pesquisa e inovação em saúde",
+    about:
+      "Maior instituição de pesquisa biomédica da América Latina, criada em 1900. O projeto foi feito com o CDTS (Centro de Desenvolvimento Tecnológico em Saúde), que oferta serviços técnicos ao mercado por meio de uma plataforma — e chegou à Opção por indicação.",
     challenge:
-      "A empresa crescia em faturamento, mas o lucro não acompanhava e o caixa vivia apertado.",
+      "Verificar a efetividade, no mercado, dos serviços técnicos que o CDTS passaria a ofertar.",
     solution:
-      "Reestruturamos o fluxo de caixa, revisamos a precificação por produto e implantamos um painel de indicadores.",
-    result:
-      "Aumento de margem e previsibilidade de caixa em poucos meses. [Resultado quantitativo — PLACEHOLDER]",
+      "Estudo de viabilidade mercadológica estruturado em análise de oferta, análise de demanda e estudo de demanda econométrica.",
+    results: [
+      "Clareza sobre a concorrência no mercado",
+      "Leitura do interesse do público-alvo",
+      "Previsão da quantidade de serviços demandada",
+    ],
   },
   {
-    sector: "Indústria de alimentos",
-    icon: Calculator,
+    slug: "estudios-noah",
+    client: "Estúdios Noah",
+    year: null,
+    icon: Sofa,
+    project: "Estratégia, precificação e gestão",
+    sector: "Mercado moveleiro — móveis exclusivos e personalizados",
+    about:
+      "Marca de móveis autorais com fabricação própria e loja física no Rio de Janeiro, nascida da ideia do arquiteto Salomão Medeiros.",
     challenge:
-      "Não havia clareza sobre o custo real de cada produto, dificultando a definição de preços.",
+      "Pouco conhecimento sobre concorrentes e sobre o mercado moveleiro carioca, dificuldade para definir preços e se comunicar com o público, e ausência de uma cultura empresarial estruturada.",
     solution:
-      "Mapeamento completo de custos, cálculo de margem de contribuição e ponto de equilíbrio.",
-    result:
-      "Política de preços baseada em dados e identificação de produtos deficitários. [PLACEHOLDER]",
+      "Pesquisa de mercado, sistema de precificação baseado em custos e variações de demanda, manuais para clientes (diferenciais e fidelização) e manual de cultura organizacional.",
+    results: [
+      "Mais competitividade e potencial de maximização de lucros",
+      "Maior conexão com os clientes",
+      "Padrões de atendimento e menos conflitos entre colaboradores",
+      "Planos de cargos e carreiras estruturados",
+    ],
   },
   {
-    sector: "Serviços B2B",
-    icon: Target,
+    slug: "alva",
+    client: "Alva",
+    year: 2020,
+    icon: Shirt,
+    project: "Análise de mercado e planejamento financeiro",
+    sector: "Moda e e-commerce — camisetas personalizáveis",
+    about:
+      "Marca de roupas com foco em camisetas personalizáveis para um público jovem que busca estilo, identidade e exclusividade.",
     challenge:
-      "Crescimento sem direção clara e dificuldade em priorizar iniciativas.",
+      "Entender o potencial de mercado e a viabilidade financeira do negócio, sem informações estruturadas sobre o setor, a concorrência e o público-alvo.",
     solution:
-      "Planejamento estratégico com diagnóstico, definição de metas e plano de ação priorizado.",
-    result:
-      "Time alinhado em torno de objetivos comuns e metas acompanhadas mensalmente. [PLACEHOLDER]",
+      "Análise setorial do e-commerce de moda, mapeamento de concorrentes, pesquisa com potenciais consumidores e projeções de custos e receitas com VPL, TIR e Payback.",
+    results: [
+      "Viabilidade financeira comprovada mesmo em cenários pessimistas",
+      "Plano de entrada no mercado baseado em dados",
+      "Estratégias de precificação, marketing e diferenciação definidas",
+    ],
+  },
+  {
+    slug: "cali-tecidos",
+    client: "Cáli Tecidos",
+    year: null,
+    icon: Scissors,
+    project: "Precificação e posicionamento",
+    sector: "Decoração de interiores — cortinas, persianas e estofados sob medida",
+    about:
+      "Empresa especializada em tecidos para decoração, com soluções personalizadas que unem sofisticação, conforto e funcionalidade.",
+    challenge:
+      "Entender os custos e o mercado de tecidos e decoração no Rio de Janeiro e superar a falta de estratégia de posicionamento.",
+    solution:
+      "Modelo de precificação considerando as diferentes matérias-primas e pesquisa de mercado com as perspectivas do setor no curto e médio prazo.",
+    results: [
+      "Preços realistas e margens equilibradas",
+      "Competitividade sustentável",
+      "Decisões alinhadas às tendências e aos custos do setor",
+    ],
+  },
+  {
+    slug: "capriana",
+    client: "Capriana",
+    year: 2018,
+    icon: Milk,
+    project: "Análise de mercado",
+    sector: "Laticínios — leite de cabra e derivados artesanais",
+    about:
+      "Granja leiteira especializada em leite de cabra e derivados, com foco em produtos artesanais e de alta qualidade.",
+    challenge:
+      "Baixo crescimento do faturamento e dificuldade para entender o posicionamento no mercado, sem dados sobre o setor de laticínios e o perfil dos consumidores.",
+    solution:
+      "Análise setorial (estatísticas, histórico e tendências do setor) e análise de demanda, com definição do público-alvo e pesquisa com os clientes.",
+    results: [
+      "Visão clara do mercado e dos consumidores",
+      "Identificação de nichos promissores",
+      "Posicionamento da marca ajustado",
+      "Ações comerciais mais estratégicas",
+    ],
   },
 ];
 
-/** Missão, Visão e Valores */
-export const mvv = {
-  mission: {
-    icon: Target,
-    title: "Missão",
-    text: "Impulsionar o crescimento de pequenas e médias empresas com consultoria econômica e financeira acessível e de alto nível, enquanto formamos profissionais de excelência. [PLACEHOLDER]",
-  },
-  vision: {
-    icon: TrendingUp,
-    title: "Visão",
-    text: "Ser referência em consultoria de empresa júnior na região de Niterói, reconhecida pelo impacto real gerado nos clientes. [PLACEHOLDER]",
-  },
-  values: {
-    icon: ShieldCheck,
-    title: "Valores",
-    text: "Compromisso com resultados, ética, aprendizado contínuo e proximidade com o cliente. [PLACEHOLDER]",
-  },
+/** Clientes exibidos na faixa "Quem confia" (nomes; todos têm case publicado). */
+export const clients = cases.map((c) => c.client);
+
+/* ------------------------------------------------------------------------ */
+/*  INSTITUCIONAL                                                            */
+/* ------------------------------------------------------------------------ */
+
+export const mission = {
+  icon: Target,
+  title: "Missão",
+  text: "Transformar a formação acadêmica em desenvolvimento profissional de alto impacto por meio da execução de projetos que geram valor real para o mercado.",
 };
 
-/** Diferenciais (Sobre / Home) */
-export const differentials = [
+export const vision = {
+  icon: Eye,
+  title: "Visão",
+  text: "Ser reconhecida como a ponte definitiva entre o rigor acadêmico da universidade e a alta performance do mercado de consultoria empresarial.",
+};
+
+export const values = [
   {
-    icon: ShieldCheck,
-    title: "Selo Empresa Júnior",
-    text: "Movimento Empresa Júnior, com metodologia e supervisão acadêmica da UFF.",
+    icon: BadgeCheck,
+    title: "Profissionalismo",
+    text: "Tratamos problemas reais com seriedade, clareza e método. Buscamos compreender suas causas, avaliar alternativas e construir soluções efetivas para cada demanda. Na Opção, ser estudante não é sinônimo de amadorismo.",
   },
   {
     icon: Lightbulb,
-    title: "Conhecimento de ponta",
-    text: "Aplicamos o que há de mais atual em Economia, com orientação de professores.",
+    title: "Criatividade",
+    text: "Destrinchamos incertezas, desbravamos oportunidades e desenvolvemos soluções mesmo quando não existe um caminho dado.",
   },
   {
     icon: Handshake,
-    title: "Preço acessível",
-    text: "Qualidade de consultoria com o custo justo de uma empresa júnior.",
+    title: "Compromisso",
+    text: "Pertencer é assumir responsabilidades e conduzi-las com dedicação, consistência e compromisso.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Progresso",
+    text: "Toda experiência é uma oportunidade de aprendizado. O progresso é nosso guia.",
   },
   {
     icon: Users,
-    title: "Atendimento próximo",
-    text: "Acompanhamento de perto, com foco no resultado do seu negócio.",
+    title: "Espírito de equipe",
+    text: "Diferentes talentos, alinhados a um mesmo propósito, produzem resultados que vão além do individual. Valorizamos a troca de perspectivas, o desenvolvimento conjunto e a responsabilidade compartilhada.",
   },
 ];
 
-/** História (Sobre) — [PLACEHOLDER] */
-export const aboutStory = [
-  "A Opção Consultoria é a Empresa Júnior de Economia da Universidade Federal Fluminense (UFF), em Niterói/RJ. Formada e gerida por estudantes de Economia, une o rigor técnico da universidade à vontade de gerar impacto real em empresas da região. [PLACEHOLDER — substituir pela história oficial]",
-  "Ao longo da nossa trajetória, ajudamos micro, pequenas e médias empresas a tomarem decisões mais inteligentes — sempre com base em dados, e não em achismos. Cada projeto também forma profissionais preparados para o mercado. [PLACEHOLDER]",
+/** Diferenciais (Home) */
+export const differentials = [
+  {
+    icon: GraduationCap,
+    title: `Desde 1998 na UFF`,
+    text: "Mais de duas décadas unindo o rigor acadêmico da universidade à prática de mercado.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Profissionalismo de verdade",
+    text: "Seriedade, clareza e método em cada projeto. Ser estudante não é sinônimo de amadorismo.",
+  },
+  {
+    icon: Ruler,
+    title: "Soluções sob medida",
+    text: "Cada projeto é desenhado para a realidade, a identidade e os objetivos do seu negócio.",
+  },
+  {
+    icon: Handshake,
+    title: "Custo de empresa júnior",
+    text: "Consultoria de alto nível com o investimento acessível de uma empresa júnior.",
+  },
 ];
 
-/**
- * Time / Diretoria — [PLACEHOLDER].
- * Substituir nomes, cargos e fotos (coloque as fotos em /public/images/time/).
- */
-export const team = [
-  { name: "Nome do Membro", role: "Presidência", photo: null },
-  { name: "Nome do Membro", role: "Diretoria de Projetos", photo: null },
-  { name: "Nome do Membro", role: "Diretoria Comercial", photo: null },
-  { name: "Nome do Membro", role: "Gestão de Recursos", photo: null },
-  { name: "Nome do Membro", role: "Marketing", photo: null },
-  { name: "Nome do Membro", role: "Diretoria Administrativa", photo: null },
+/** História (Sobre) */
+export const aboutStory = [
+  `Fundada em ${siteConfig.foundedLabel}, a Opção Consultoria (${siteConfig.legalName}) é a empresa júnior de consultoria da Universidade Federal Fluminense, em Niterói. Formada e gerida por estudantes, transforma a formação acadêmica em desenvolvimento profissional de alto impacto — executando projetos que geram valor real para o mercado.`,
+  "Nossos projetos já atenderam de negócios locais a instituições de referência nacional, como a Fiocruz. O método é sempre o mesmo: entender a causa do problema, avaliar alternativas e construir soluções efetivas para cada demanda.",
 ];

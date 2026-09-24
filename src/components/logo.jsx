@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/asset";
 
 const LOGO_SRC = {
   navy: "/logo-navy.png",
@@ -18,10 +19,10 @@ const BULL_SRC = {
 export function Logo({ variant = "navy", className, priority = false }) {
   return (
     <Image
-      src={LOGO_SRC[variant] ?? LOGO_SRC.navy}
+      src={asset(LOGO_SRC[variant] ?? LOGO_SRC.navy)}
       alt="Opção Consultoria"
-      width={15681}
-      height={5125}
+      width={960}
+      height={314}
       priority={priority}
       sizes="240px"
       className={cn("h-10 w-auto", className)}
@@ -37,11 +38,11 @@ export function Logo({ variant = "navy", className, priority = false }) {
 export function BullMark({ variant = "navy", className }) {
   return (
     <Image
-      src={BULL_SRC[variant] ?? BULL_SRC.navy}
+      src={asset(BULL_SRC[variant] ?? BULL_SRC.navy)}
       alt=""
       aria-hidden="true"
-      width={2616}
-      height={2314}
+      width={840}
+      height={743}
       sizes="500px"
       className={cn("h-auto", className)}
     />

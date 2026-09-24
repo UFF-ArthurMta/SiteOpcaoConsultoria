@@ -1,5 +1,8 @@
 import { siteConfig } from "@/lib/site-data";
 
+// Gerado no build (necessário para o export estático do GitHub Pages).
+export const dynamic = "force-static";
+
 export default function sitemap() {
   const base = siteConfig.url;
   const now = new Date();

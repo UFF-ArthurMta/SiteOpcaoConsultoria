@@ -1,23 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Cookie } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const STORAGE_KEY = "opcao-cookie-consent";
 
+const subscribe = () => () => {};
+
+function readConsent() {
+  try {
+    return Boolean(localStorage.getItem(STORAGE_KEY));
+  } catch {
+    return true; // localStorage indisponível — não bloqueia o site
+  }
+}
+
 /** Banner de consentimento de cookies (LGPD). */
 export default function CookieBanner() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
-    } catch {
-      // localStorage indisponível — não bloqueia o site
-    }
-  }, []);
+  // Lê o consentimento só no cliente; no servidor o banner fica oculto.
+  const consented = useSyncExternalStore(
+    subscribe,
+    readConsent,
+    () => true
+  );
+  const [dismissed, setDismissed] = useState(false);
+  const visible = !consented && !dismissed;
 
   const decide = (value) => {
     try {
@@ -25,7 +34,7 @@ export default function CookieBanner() {
     } catch {
       /* ignore */
     }
-    setVisible(false);
+    setDismissed(true);
   };
 
   if (!visible) return null;

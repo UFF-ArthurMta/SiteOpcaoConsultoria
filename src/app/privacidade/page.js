@@ -9,8 +9,8 @@ export const metadata = {
 };
 
 /**
- * [PLACEHOLDER] Modelo de Política de Privacidade.
- * Revise com apoio jurídico antes de publicar oficialmente.
+ * Modelo de Política de Privacidade — ainda pendente de revisão jurídica
+ * (e da indicação do responsável pelos dados / contato LGPD).
  */
 export default function PrivacidadePage() {
   return (
@@ -24,16 +24,11 @@ export default function PrivacidadePage() {
       <section className="py-16 sm:py-20">
         <Container className="max-w-3xl">
           <div className="prose-opcao space-y-8 text-brand-text">
-            <p className="rounded-xl bg-brand-orange-50 p-4 text-sm text-brand-orange-600">
-              [PLACEHOLDER] Este é um modelo inicial. Revise o conteúdo com apoio
-              jurídico antes da publicação oficial.
-            </p>
-
             <Block title="1. Quem somos">
-              A {siteConfig.name} é a Empresa Júnior de Economia da Universidade
-              Federal Fluminense (UFF), inscrita no CNPJ {siteConfig.cnpj}, com
-              sede em {siteConfig.address.line1}, {siteConfig.address.city}/
-              {siteConfig.address.state}.
+              A {siteConfig.name} ({siteConfig.legalName}) é a empresa júnior de
+              consultoria da Universidade Federal Fluminense (UFF), inscrita no
+              CNPJ {siteConfig.cnpj}, com sede em {siteConfig.address.line1},{" "}
+              {siteConfig.address.city}/{siteConfig.address.state}.
             </Block>
 
             <Block title="2. Dados que coletamos">
@@ -81,7 +76,7 @@ export default function PrivacidadePage() {
             </Block>
 
             <p className="text-sm text-brand-text/70">
-              Última atualização: [PLACEHOLDER — inserir data].
+              Última atualização: setembro de 2026.
             </p>
           </div>
         </Container>

@@ -122,9 +122,9 @@ export default function Footer() {
               Institucional
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-white/70">
-              <li>CNPJ: {siteConfig.cnpj}</li>
-              <li>Empresa Júnior de Economia</li>
-              <li>Universidade Federal Fluminense (UFF)</li>
+              <li>{siteConfig.legalName}</li>
+              <li className="tabular-nums">CNPJ: {siteConfig.cnpj}</li>
+              <li>Empresa Júnior da UFF, desde 1998</li>
               <li>
                 <Link
                   href="/privacidade"
@@ -144,7 +144,7 @@ export default function Footer() {
             © {year} {siteConfig.name}. Todos os direitos reservados.
           </p>
           <p>
-            Empresa Júnior de Economia · Universidade Federal Fluminense — Niterói/RJ
+            Empresa Júnior · Universidade Federal Fluminense — Niterói/RJ
           </p>
         </Container>
       </div>

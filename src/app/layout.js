@@ -22,7 +22,7 @@ const montserrat = Montserrat({
 export const metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — Consultoria Econômica e Financeira em Niterói`,
+    default: `${siteConfig.name} — Empresa Júnior de Consultoria da UFF`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
