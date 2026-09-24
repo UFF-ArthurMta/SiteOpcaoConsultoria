@@ -43,7 +43,7 @@ export default function CookieBanner() {
     <div
       role="dialog"
       aria-label="Aviso de cookies"
-      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-2xl border border-border bg-white p-4 shadow-xl sm:p-5"
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-2xl border border-border bg-card p-4 shadow-xl sm:p-5"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         <div className="flex items-start gap-3">
@@ -53,7 +53,7 @@ export default function CookieBanner() {
             site. Ao continuar, você concorda com a nossa{" "}
             <Link
               href="/privacidade"
-              className="font-medium text-brand-navy underline underline-offset-2 hover:text-brand-orange"
+              className="font-medium text-heading underline underline-offset-2 hover:text-brand-orange"
             >
               Política de Privacidade
             </Link>
@@ -72,7 +72,7 @@ export default function CookieBanner() {
           <Button
             size="lg"
             onClick={() => decide("accepted")}
-            className="flex-1 bg-brand-navy text-white hover:bg-brand-navy-700 sm:flex-none"
+            className="flex-1 bg-brand-navy text-white hover:bg-brand-navy-700 sm:flex-none dark:bg-brand-orange dark:hover:bg-brand-orange-600"
           >
             Aceitar
           </Button>

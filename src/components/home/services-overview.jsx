@@ -24,10 +24,10 @@ export default function ServicesOverview() {
                 className="h-full ring-border transition-shadow [--card-spacing:--spacing(6)] hover:shadow-lg"
               >
                 <CardContent className="flex h-full flex-col">
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-brand-navy text-white">
+                  <div className="flex size-12 items-center justify-center rounded-xl bg-brand-navy dark:bg-white/10 text-white">
                     <Icon className="size-6" />
                   </div>
-                  <h3 className="mt-5 text-lg font-bold text-brand-navy">
+                  <h3 className="mt-5 text-lg font-bold text-heading">
                     {area.title}
                   </h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-brand-text">
@@ -41,11 +41,11 @@ export default function ServicesOverview() {
                         <li key={service.slug}>
                           <Link
                             href={`/servicos#${service.slug}`}
-                            className="group flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-gray"
+                            className="group flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-medium text-heading transition-colors hover:bg-brand-gray"
                           >
                             <ServiceIcon className="size-4 shrink-0 text-brand-orange" />
                             <span className="flex-1">{service.title}</span>
-                            <ArrowRight className="size-4 text-brand-navy/30 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-orange" />
+                            <ArrowRight className="size-4 text-heading/30 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-orange" />
                           </Link>
                         </li>
                       );

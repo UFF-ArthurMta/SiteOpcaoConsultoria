@@ -51,7 +51,7 @@ export default function ContatoPage() {
         <Container className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-14">
           {/* Coluna de informações */}
           <div className="min-w-0">
-            <h2 className="text-2xl font-bold text-brand-navy">
+            <h2 className="text-2xl font-bold text-heading">
               Vamos conversar sobre o seu negócio
             </h2>
             <p className="mt-3 text-brand-text">
@@ -68,7 +68,7 @@ export default function ContatoPage() {
                       <Icon className="size-5" />
                     </span>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-brand-navy">
+                      <p className="text-sm font-semibold text-heading">
                         {info.label}
                       </p>
                       <p className="text-sm break-words text-brand-text">
@@ -101,9 +101,9 @@ export default function ContatoPage() {
             </ul>
 
             <div className="mt-8 flex items-start gap-4 rounded-2xl bg-brand-gray p-5">
-              <Clock className="mt-0.5 size-5 shrink-0 text-brand-navy" />
+              <Clock className="mt-0.5 size-5 shrink-0 text-heading" />
               <div className="text-sm text-brand-text">
-                <p className="font-semibold text-brand-navy">
+                <p className="font-semibold text-heading">
                   Resposta em até 24 horas
                 </p>
                 <p>Atendimento de segunda a sexta, em horário comercial.</p>

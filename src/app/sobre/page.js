@@ -40,10 +40,10 @@ export default function SobrePage() {
                   className="h-full ring-border [--card-spacing:--spacing(8)]"
                 >
                   <CardContent className="flex h-full flex-col">
-                    <div className="flex size-12 items-center justify-center rounded-xl bg-brand-navy text-white">
+                    <div className="flex size-12 items-center justify-center rounded-xl bg-brand-navy dark:bg-white/10 text-white">
                       <Icon className="size-6" />
                     </div>
-                    <h2 className="mt-5 text-2xl font-bold text-brand-navy">
+                    <h2 className="mt-5 text-2xl font-bold text-heading">
                       {pillar.title}
                     </h2>
                     <p className="mt-3 text-base leading-relaxed text-brand-text">
@@ -70,13 +70,13 @@ export default function SobrePage() {
               return (
                 <div
                   key={value.title}
-                  className="rounded-2xl bg-white p-6 ring-1 ring-border"
+                  className="rounded-2xl bg-card p-6 ring-1 ring-border"
                 >
                   <div className="flex items-center gap-3">
                     <span className="flex size-10 items-center justify-center rounded-lg bg-brand-orange-50 text-brand-orange">
                       <Icon className="size-5" />
                     </span>
-                    <h3 className="text-lg font-bold text-brand-navy">
+                    <h3 className="text-lg font-bold text-heading">
                       {value.title}
                     </h3>
                   </div>
@@ -97,7 +97,7 @@ export default function SobrePage() {
             <span className="text-sm font-semibold uppercase tracking-wider text-brand-orange">
               Nossa história
             </span>
-            <h2 className="mt-2 text-3xl font-bold text-brand-navy sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold text-heading sm:text-4xl">
               Desde 1998, conhecimento da universidade com resultado no mercado
             </h2>
             <div className="mt-5 space-y-4 text-base leading-relaxed text-brand-text">
@@ -108,7 +108,7 @@ export default function SobrePage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl bg-brand-navy p-6 text-white">
+            <div className="rounded-2xl bg-brand-navy p-6 text-white dark:ring-1 dark:ring-white/10">
               <GraduationCap className="size-9 text-brand-orange" />
               <h3 className="mt-4 text-lg font-bold">Vínculo com a UFF</h3>
               <p className="mt-2 text-sm text-white/80">
@@ -116,9 +116,9 @@ export default function SobrePage() {
                 Fluminense, no Campus do Gragoatá.
               </p>
             </div>
-            <div className="rounded-2xl bg-white p-6 ring-1 ring-border">
+            <div className="rounded-2xl bg-card p-6 ring-1 ring-border">
               <BadgeCheck className="size-9 text-brand-orange" />
-              <h3 className="mt-4 text-lg font-bold text-brand-navy">
+              <h3 className="mt-4 text-lg font-bold text-heading">
                 Empresa Júnior
               </h3>
               <p className="mt-2 text-sm text-brand-text">
@@ -126,18 +126,18 @@ export default function SobrePage() {
                 ética e desenvolvimento.
               </p>
             </div>
-            <div className="rounded-2xl bg-white p-6 ring-1 ring-border sm:col-span-2">
+            <div className="rounded-2xl bg-card p-6 ring-1 ring-border sm:col-span-2">
               <dl className="grid gap-3 text-sm sm:grid-cols-3">
                 <div>
-                  <dt className="font-semibold text-brand-navy">Razão social</dt>
+                  <dt className="font-semibold text-heading">Razão social</dt>
                   <dd className="text-brand-text">{siteConfig.legalName}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-brand-navy">CNPJ</dt>
+                  <dt className="font-semibold text-heading">CNPJ</dt>
                   <dd className="tabular-nums text-brand-text">{siteConfig.cnpj}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-brand-navy">Fundação</dt>
+                  <dt className="font-semibold text-heading">Fundação</dt>
                   <dd className="text-brand-text">{siteConfig.foundedLabel}</dd>
                 </div>
               </dl>

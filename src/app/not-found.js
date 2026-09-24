@@ -9,9 +9,9 @@ export default function NotFound() {
   return (
     <section className="py-24 sm:py-32">
       <Container className="flex flex-col items-center text-center">
-        <BullMark variant="navy" className="w-24 opacity-25" />
-        <p className="mt-6 text-6xl font-extrabold text-brand-navy">404</p>
-        <h1 className="mt-2 text-2xl font-bold text-brand-navy">
+        <BullMark variant="auto" className="w-24 opacity-25" />
+        <p className="mt-6 text-6xl font-extrabold text-heading">404</p>
+        <h1 className="mt-2 text-2xl font-bold text-heading">
           Página não encontrada
         </h1>
         <p className="mt-3 max-w-md text-brand-text">

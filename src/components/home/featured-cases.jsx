@@ -34,7 +34,7 @@ export default function FeaturedCases() {
                       <Icon className="size-5" />
                     </span>
                     <div>
-                      <h3 className="text-lg font-bold leading-tight text-brand-navy">
+                      <h3 className="text-lg font-bold leading-tight text-heading">
                         {item.client}
                       </h3>
                       <p className="text-xs font-medium text-brand-orange">
@@ -49,7 +49,7 @@ export default function FeaturedCases() {
 
                   <ul className="mt-4 flex flex-1 flex-col gap-2">
                     {item.results.slice(0, 2).map((r) => (
-                      <li key={r} className="flex items-start gap-2 text-sm text-brand-navy">
+                      <li key={r} className="flex items-start gap-2 text-sm text-heading">
                         <Check className="mt-0.5 size-4 shrink-0 text-brand-orange" />
                         {r}
                       </li>
@@ -58,7 +58,7 @@ export default function FeaturedCases() {
 
                   <Link
                     href={`/cases#${item.slug}`}
-                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-navy transition-colors hover:text-brand-orange"
+                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-heading transition-colors hover:text-brand-orange"
                   >
                     Ver o case completo
                     <ArrowRight className="size-4" />

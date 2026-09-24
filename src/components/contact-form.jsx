@@ -167,14 +167,14 @@ export default function ContactForm() {
 
   if (success) {
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-border bg-linear-to-b from-brand-orange-50 to-white p-8 text-center shadow-sm sm:p-10">
+      <div className="flex flex-col items-center rounded-2xl border border-border bg-linear-to-b from-brand-orange-50 to-card p-8 text-center shadow-sm sm:p-10">
         <MascotImage
           pose={viaEmail ? MASCOT.email : MASCOT.success}
           className="h-40 w-auto sm:h-44"
         />
         {viaEmail ? (
           <>
-            <h3 className="mt-5 text-2xl font-bold text-brand-navy">
+            <h3 className="mt-5 text-2xl font-bold text-heading">
               Sua mensagem está pronta
             </h3>
             <p className="mt-3 max-w-md text-brand-text">
@@ -185,7 +185,7 @@ export default function ContactForm() {
                 href={`https://wa.me/${siteConfig.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-brand-navy underline hover:text-brand-orange"
+                className="font-medium text-heading underline hover:text-brand-orange"
               >
                 WhatsApp
               </a>
@@ -194,7 +194,7 @@ export default function ContactForm() {
           </>
         ) : (
           <>
-            <h3 className="mt-5 text-2xl font-bold text-brand-navy">
+            <h3 className="mt-5 text-2xl font-bold text-heading">
               Recebemos sua solicitação!
             </h3>
             <p className="mt-3 max-w-md text-brand-text">
@@ -223,7 +223,7 @@ export default function ContactForm() {
     // para o respiro da seção; no celular o espaço vem do padding-top.
     <div className="relative pt-22 lg:pt-0">
       <div className="pointer-events-none absolute top-0 right-4 z-10 flex items-start gap-1 select-none sm:right-8 lg:-top-22">
-        <p className="relative mt-3 rounded-2xl rounded-br-sm bg-brand-navy px-3.5 py-2 text-xs font-semibold text-white shadow-md sm:text-sm">
+        <p className="relative mt-3 rounded-2xl rounded-br-sm bg-brand-navy px-3.5 dark:bg-brand-orange py-2 text-xs font-semibold text-white shadow-md sm:text-sm">
           Leva só 2 minutinhos!
         </p>
         <MascotImage
@@ -236,7 +236,7 @@ export default function ContactForm() {
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="rounded-2xl border border-border bg-white p-6 shadow-sm sm:p-8"
+        className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8"
       >
         <div className="grid gap-5 sm:grid-cols-2">
           <Field id="name" label="Nome completo" required>

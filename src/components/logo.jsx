@@ -14,9 +14,19 @@ const BULL_SRC = {
 
 /**
  * Logo oficial da Opção Consultoria (símbolo + wordmark).
- * @param {"navy"|"white"} variant — navy para fundos claros, white para escuros
+ * @param {"navy"|"white"|"auto"} variant — navy para fundos claros, white para
+ *   escuros, auto segue o tema (navy no claro, white no escuro) via CSS.
  */
 export function Logo({ variant = "navy", className, priority = false }) {
+  if (variant === "auto") {
+    return (
+      <>
+        <Logo variant="navy" priority={priority} className={cn(className, "dark:hidden")} />
+        <Logo variant="white" priority={priority} className={cn(className, "hidden dark:block")} />
+      </>
+    );
+  }
+
   return (
     <Image
       src={asset(LOGO_SRC[variant] ?? LOGO_SRC.navy)}
@@ -33,9 +43,18 @@ export function Logo({ variant = "navy", className, priority = false }) {
 /**
  * Mascote (touro) — uso decorativo. É uma imagem, então o tamanho é controlado
  * por largura (w-*) e a transparência por opacity-* (não use text-color/size-*).
- * @param {"navy"|"white"} variant
+ * @param {"navy"|"white"|"auto"} variant
  */
 export function BullMark({ variant = "navy", className }) {
+  if (variant === "auto") {
+    return (
+      <>
+        <BullMark variant="navy" className={cn(className, "dark:hidden")} />
+        <BullMark variant="white" className={cn(className, "hidden dark:block")} />
+      </>
+    );
+  }
+
   return (
     <Image
       src={asset(BULL_SRC[variant] ?? BULL_SRC.navy)}

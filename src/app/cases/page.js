@@ -36,11 +36,11 @@ export default function CasesPage() {
                     {/* Cabeçalho do case */}
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex items-start gap-4">
-                        <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-navy text-white">
+                        <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-navy dark:bg-white/10 text-white">
                           <Icon className="size-6" />
                         </span>
                         <div>
-                          <h2 className="text-2xl font-bold text-brand-navy">
+                          <h2 className="text-2xl font-bold text-heading">
                             {item.client}
                           </h2>
                           <p className="text-sm text-brand-text">{item.sector}</p>

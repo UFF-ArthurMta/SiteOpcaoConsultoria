@@ -17,7 +17,7 @@ export default function CtaSection({
   return (
     <section className={cn("py-16 sm:py-20", className)}>
       <Container>
-        <div className="relative overflow-hidden rounded-3xl bg-brand-navy px-6 py-14 text-center shadow-xl sm:px-12">
+        <div className="relative overflow-hidden rounded-3xl bg-brand-navy px-6 py-14 text-center shadow-xl sm:px-12 dark:ring-1 dark:ring-white/10">
           {/* mascote decorativo */}
           <BullMark
             variant="white"

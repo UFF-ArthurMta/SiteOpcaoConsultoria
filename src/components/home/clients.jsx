@@ -13,7 +13,7 @@ export default function Clients() {
           {clients.map((client) => (
             <li
               key={client}
-              className="font-heading text-xl font-bold tracking-tight text-brand-navy/60 sm:text-2xl"
+              className="font-heading text-xl font-bold tracking-tight text-heading/60 sm:text-2xl"
             >
               {client}
             </li>

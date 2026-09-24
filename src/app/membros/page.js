@@ -20,11 +20,11 @@ export default function MembrosPage() {
           Em construção
         </Badge>
 
-        <span className="mt-8 flex size-20 items-center justify-center rounded-2xl bg-brand-gray text-brand-navy">
+        <span className="mt-8 flex size-20 items-center justify-center rounded-2xl bg-brand-gray text-heading">
           <Construction className="size-10" />
         </span>
 
-        <h1 className="mt-6 text-3xl font-extrabold text-brand-navy sm:text-4xl">
+        <h1 className="mt-6 text-3xl font-extrabold text-heading sm:text-4xl">
           Área de Membros em breve
         </h1>
         <p className="mt-4 max-w-md text-brand-text">

@@ -1,6 +1,7 @@
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import ThemeProvider from "@/components/theme-provider";
 import CookieBanner from "@/components/cookie-banner";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -52,7 +53,7 @@ export const metadata = {
   robots: { index: true, follow: true },
 };
 
-// Cor da barra do navegador no celular (igual ao fundo do header).
+// Cor inicial da barra do navegador no celular; o ThemeProvider troca no escuro.
 export const viewport = {
   themeColor: "#ffffff",
 };
@@ -61,14 +62,17 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="pt-BR"
+      suppressHydrationWarning
       className={`${inter.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <Toaster richColors position="top-center" />
-        <CookieBanner />
+        <ThemeProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <Toaster richColors position="top-center" />
+          <CookieBanner />
+        </ThemeProvider>
       </body>
     </html>
   );

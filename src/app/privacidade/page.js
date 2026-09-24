@@ -66,7 +66,7 @@ export default function PrivacidadePage() {
               consentimento. Para isso, entre em contato pelo e-mail{" "}
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="font-medium text-brand-navy underline hover:text-brand-orange"
+                className="font-medium text-heading underline hover:text-brand-orange"
               >
                 {siteConfig.email}
               </a>
@@ -91,7 +91,7 @@ export default function PrivacidadePage() {
 function Block({ title, children }) {
   return (
     <div>
-      <h2 className="text-xl font-bold text-brand-navy">{title}</h2>
+      <h2 className="text-xl font-bold text-heading">{title}</h2>
       <p className="mt-3 leading-relaxed">{children}</p>
     </div>
   );

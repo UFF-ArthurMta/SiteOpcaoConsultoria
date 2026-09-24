@@ -35,7 +35,7 @@ export default function SectionHeading({
       <h2
         className={cn(
           "text-3xl font-bold sm:text-4xl",
-          isDark ? "text-white" : "text-brand-navy"
+          isDark ? "text-white" : "text-heading"
         )}
       >
         {title}

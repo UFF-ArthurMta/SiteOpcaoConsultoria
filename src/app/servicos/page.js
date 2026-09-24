@@ -38,7 +38,7 @@ export default function ServicosPage() {
                   <li key={service.slug}>
                     <Link
                       href={`#${service.slug}`}
-                      className="inline-flex items-center rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-brand-navy ring-1 ring-border transition-colors hover:bg-brand-navy hover:text-white"
+                      className="inline-flex items-center rounded-full bg-card px-3.5 py-1.5 text-sm font-medium text-heading ring-1 ring-border transition-colors hover:bg-brand-navy hover:text-white"
                     >
                       {service.title}
                     </Link>
@@ -90,16 +90,16 @@ export default function ServicosPage() {
                           <div className="flex size-14 items-center justify-center rounded-2xl bg-brand-orange-50 text-brand-orange">
                             <Icon className="size-7" />
                           </div>
-                          <h3 className="mt-5 text-2xl font-bold text-brand-navy sm:text-3xl">
+                          <h3 className="mt-5 text-2xl font-bold text-heading sm:text-3xl">
                             {service.title}
                           </h3>
                           <p className="mt-4 text-base leading-relaxed text-brand-text">
                             {service.description}
                           </p>
                           <div className="mt-5 flex items-start gap-3 rounded-xl bg-brand-gray p-4">
-                            <Users className="mt-0.5 size-5 shrink-0 text-brand-navy" />
+                            <Users className="mt-0.5 size-5 shrink-0 text-heading" />
                             <p className="text-sm text-brand-text">
-                              <span className="font-semibold text-brand-navy">
+                              <span className="font-semibold text-heading">
                                 Para quem serve:{" "}
                               </span>
                               {service.forWhom}
@@ -124,10 +124,10 @@ export default function ServicosPage() {
                           <ul className="mt-5 space-y-4">
                             {service.deliverables.map((item) => (
                               <li key={item} className="flex items-start gap-3">
-                                <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-navy">
+                                <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-navy dark:bg-white/10">
                                   <Check className="size-4 text-white" />
                                 </span>
-                                <span className="text-brand-navy">{item}</span>
+                                <span className="text-heading">{item}</span>
                               </li>
                             ))}
                           </ul>

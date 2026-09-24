@@ -18,12 +18,12 @@ export default function Differentials() {
             return (
               <div
                 key={item.title}
-                className="rounded-2xl bg-white p-6 ring-1 ring-border"
+                className="rounded-2xl bg-card p-6 ring-1 ring-border"
               >
-                <div className="flex size-12 items-center justify-center rounded-xl bg-brand-navy text-white">
+                <div className="flex size-12 items-center justify-center rounded-xl bg-brand-navy dark:bg-white/10 text-white">
                   <Icon className="size-6" />
                 </div>
-                <h3 className="mt-5 text-base font-bold text-brand-navy">
+                <h3 className="mt-5 text-base font-bold text-heading">
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-brand-text">
