@@ -37,7 +37,9 @@ function whatsappLink(phone) {
 }
 
 // O plano grátis do Web3Forms usa um modelo de e-mail fixo: a "personalização"
-// vem do assunto, do remetente e dos nomes/ordem dos campos abaixo.
+// vem do assunto, do remetente e dos campos abaixo. Cada campo vira uma coluna
+// na tabela de Submissions, então os nomes são curtos, fixos e sem emoji —
+// mudar um nome cria uma coluna nova e bagunça o histórico.
 async function sendViaWeb3Forms(form) {
   const receivedAt = new Date().toLocaleString("pt-BR", {
     timeZone: "America/Sao_Paulo",
@@ -50,19 +52,17 @@ async function sendViaWeb3Forms(form) {
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({
       access_key: WEB3FORMS_KEY,
-      subject: `🐂 Novo pedido de diagnóstico — ${form.company.trim()}`,
-      from_name: "Opção Consultoria • Site",
+      subject: `Novo pedido de diagnóstico: ${form.company.trim()}`,
+      from_name: "Site Opção Consultoria",
       replyto: form.email.trim(),
-      "🏢 Empresa": form.company.trim(),
-      "👤 Nome": form.name.trim(),
-      "📧 E-mail": form.email.trim(),
-      "📱 Telefone": form.phone.trim(),
-      "💬 Chamar no WhatsApp": whatsappLink(form.phone),
-      "🎯 Desafio da empresa": form.message.trim(),
-      "🕒 Recebido em": receivedAt,
-      "🌐 Enviado pela página": window.location.href,
-      "↩️ Como responder":
-        "É só clicar em Responder: a resposta vai direto para o e-mail do cliente.",
+      Nome: form.name.trim(),
+      Empresa: form.company.trim(),
+      Email: form.email.trim(),
+      Telefone: form.phone.trim(),
+      WhatsApp: whatsappLink(form.phone),
+      Desafio: form.message.trim(),
+      Recebido: receivedAt,
+      Origem: window.location.href,
     }),
   });
   const data = await res.json().catch(() => ({}));
