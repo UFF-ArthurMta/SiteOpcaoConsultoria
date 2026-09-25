@@ -5,12 +5,15 @@
  *   route handler /api/lead (formulário → Power Automate).
  *
  * - GitHub Pages (`npm run build:pages`, define GITHUB_PAGES=true) → export
- *   estático servido em /SiteOpcaoConsultoria. Nesse modo o /api/lead fica de
- *   fora (export estático não suporta rotas que dependem de Request) e o
- *   formulário usa o fallback descrito em src/components/contact-form.jsx.
+ *   estático servido no domínio próprio (public/CNAME → opcaoconsultoria.com.br),
+ *   na raiz. Nesse modo o /api/lead fica de fora (export estático não suporta
+ *   rotas que dependem de Request) e o formulário usa o Web3Forms.
+ *
+ * Para voltar a servir em uff-arthurmta.github.io/SiteOpcaoConsultoria, remova
+ * o public/CNAME e rode com PAGES_BASE_PATH=/SiteOpcaoConsultoria.
  */
 const isPages = process.env.GITHUB_PAGES === "true";
-const basePath = isPages ? "/SiteOpcaoConsultoria" : "";
+const basePath = isPages ? (process.env.PAGES_BASE_PATH ?? "") : "";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
